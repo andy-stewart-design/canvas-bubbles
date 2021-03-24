@@ -1,0 +1,85 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  position: relative;
+  background-color: #4ea1ee;
+  transition: background 3s, color 3s;
+  color: #35444f;
+}
+body span.highlight {
+  color: #f0e6db;
+}
+body.cyan {
+  color: #35444f;
+  background-color: #4ea1ee;
+}
+body.cyan span.highlight {
+  color: #f0e6db;
+}
+body.royal {
+  color: #f0e6db;
+  background-color: #1f4393;
+  
+}
+body.royal span.highlight {
+  color: #f76c5e;
+}
+body.navy {
+  color: #f0e6db;
+  background-color: #0b1b3d;
+  
+}
+body.navy span.highlight {
+  color: #f76c5e;
+}
+div.text-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  min-height: 100vh;
+}
+
+h1 {
+  position: relative;
+  font-family: "Poppins", sans-serif;
+  font-size: 3.75rem;
+  text-align: center;
+  max-width: 640px;
+}
+
+span.highlight {
+  transition: color 3s;
+}
+
+.canvas-wrap {
+  position: sticky;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 100;
+}
+
+#canvas1 {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.scroll {
+  opacity: 0;
+  color: #f0e6db;
+  transition: opacity .5s;
+}
+
+.scroll.in-view {
+  opacity: 1;
+}
