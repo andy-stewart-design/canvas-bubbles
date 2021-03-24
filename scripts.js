@@ -27,7 +27,7 @@ const mouse = {
   y: 0
 };
 
-const timesPerSecond = 15;
+const timesPerSecond = 10;
 let wait = false;
 canvas.addEventListener("mousemove", (e) => {
   if (!wait) {
