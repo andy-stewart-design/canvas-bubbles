@@ -5,41 +5,36 @@
 }
 
 html {
-  background-color: #4ea1ee;
+  background-color: #f0e6db;
 }
 
 body {
   position: relative;
-  background-color: #4ea1ee;
+  background-color: #1f4393;
   transition: background 3s, color 3s;
-  color: #35444f;
+  color: #f0e6db;
 }
 body span.highlight {
-  color: #f0e6db;
-}
-body.cyan {
-  color: #35444f;
-  background-color: #4ea1ee;
-}
-body.cyan span.highlight {
-  color: #f0e6db;
-}
-body.royal {
-  color: #f0e6db;
-  background-color: #1f4393;
-  
-}
-body.royal span.highlight {
   color: #f76c5e;
 }
-body.navy {
+body.blue-01 {
+  background-color: #183676;
+}
+/* body.cyan span.highlight {
   color: #f0e6db;
+} */
+body.blue-02 {
+  background-color: #12285a;
+}
+/* body.royal span.highlight {
+  color: #f76c5e;
+} */
+body.blue-03 {
   background-color: #0b1b3d;
-  
 }
-body.navy span.highlight {
+/* body.navy span.highlight {
   color: #f76c5e;
-}
+} */
 div.text-wrap {
   display: flex;
   justify-content: center;
