@@ -5,12 +5,12 @@
 }
 
 html {
-  background-color: #f0e6db;
+  background-color: #1f4393;
 }
 
 body {
   position: relative;
-  background-color: #1f4393;
+  background-color: white;
   transition: background 3s, color 3s;
   color: #f0e6db;
 }
@@ -71,12 +71,15 @@ span.highlight {
   position: absolute;
   top: 0;
   left: 0;
+  z-index: 2;
 }
 
 .scroll {
+  position: relative;
   opacity: 0;
   color: #f0e6db;
   transition: opacity .5s;
+  z-index: 1;
 }
 
 .scroll.in-view {

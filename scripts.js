@@ -27,30 +27,42 @@ const mouse = {
   y: 0
 };
 
-const timesPerSecond = 10;
-let wait = false;
-canvas.addEventListener("mousemove", (e) => {
+// const timesPerSecond = 50;
+// let wait = false;
+// canvas.addEventListener("mousemove", (e) => {
   
-  if (!wait) {
-    mouse.x = e.clientX;
-    mouse.y = e.clientY;
-    for (let i = 0; i < 1; i++) {
-      particleArray.push(new Particle(mouse.x, mouse.y));
-      wait = true;
-      setTimeout(function () {
-        wait = false;
-      }, 3000 / timesPerSecond);
-    }
+//   if (!wait) {
+//     mouse.x = e.clientX;
+//     mouse.y = e.clientY;
+//     for (let i = 0; i < 1; i++) {
+//       mouseBubbles.push(new Particle(mouse.x, mouse.y));
+//       wait = true;
+//       setTimeout(function () {
+//         wait = false;
+//       }, 300 / timesPerSecond);
+//     }
+//   }
+// });
+canvas.addEventListener("mousemove", (e) => {
+  mouse.x = e.clientX;
+  mouse.y = e.clientY;
+  for (let i = 0; i < 1; i++) {
+    mouseBubbles.push(new Particle(mouse.x, mouse.y));
+    wait = true;
+    setTimeout(function () {
+      wait = false;
+    }, 300 / timesPerSecond);
   }
 });
 
-const bubbleInterval = 1000;
+const bubbleInterval = 200;
 function bubbleBot() {
   if(document.hidden) {
     return
   }
-  this.y = randomIntFromRange(0, wX);
-  particleArray.push(new Particle(this.y, wY + 10));
+  // this.x = randomIntFromRange(wX/2-10, wX/2+10);
+  this.x = wX/2;
+  particleArray.push(new Particle(this.x, wY + 10));
 }
 setInterval(bubbleBot, bubbleInterval);
 
@@ -61,6 +73,7 @@ function randomIntFromRange(min, max) {
 
 // Define Particles
 let particleArray = [];
+let mouseBubbles = [];
 
 const sprite = new Image();
 sprite.src = 'blob.svg';
@@ -77,11 +90,15 @@ class Particle {
   constructor(x, y) {
     this.x = x;
     this.y = y;
-    this.r = randomIntFromRange(10, 15);
-    this.speedX = randomIntFromRange(-1, 1);
+    this.r = randomIntFromRange(10, 20);
+    // this.speedX = randomIntFromRange(-.5, .5);
+    this.speedX1 = 0;
+    this.speedXVar = randomIntFromRange(-1, 1);
+    this.speedX2 = this.speedXVar >= 0 ? 0.05 : -0.05;
     this.speedY = randomIntFromRange(-1, -4);
     this.rotation = randomIntFromRange(0, 360);
-    this.rotationSpeed = this.speedX < 0 ? -0.02 : 0.02;
+    this.rotationSpeed = this.speedX1 < 0 ? -0.02 : 0.02;
+    this.opacity = 1;
   }
 
   draw() {
@@ -92,14 +109,22 @@ class Particle {
     // ctx.fill(p1);
     // ctx.closePath();
     // ctx.drawImage(sprite, this.x, this.y, this.r, this.r);
+    ctx.globalAlpha = this.opacity;
     rotateAndPaintImage(ctx, sprite, this.rotation, this.x, this.y, this.r, this.r, this.r)
   }
 
   update() {
-    this.x += this.speedX;
+    this.x += this.speedX1;
+    this.speedX1 += this.speedX2;
+    if(this.speedX1 <= -1.5 || this.speedX1 >= 1.5) {
+      this.speedX2 = -this.speedX2;
+    }
     this.y += this.speedY;
     this.rotation += this.rotationSpeed;
-    // this.r > 0.2 ? (this.r -= 0.02) : null;
+  }
+
+  fade() {
+    this.opacity -= 0.025;
   }
 }
 
@@ -109,8 +134,21 @@ function handleParticles() {
     particleArray[i].update();
     particleArray[i].draw();
 
-    if (particleArray[i].y < 0 - this.r) {
+    if (particleArray[i].y < 0 - this.r || particleArray[i].opacity <= 0.1) {
       particleArray.splice(i, 1);
+      i--;
+    }
+  }
+}
+
+function handleMouseBubbles() {
+  for (let i = 0; i < mouseBubbles.length; i++) {
+    mouseBubbles[i].update();
+    mouseBubbles[i].fade();
+    mouseBubbles[i].draw();
+
+    if (mouseBubbles[i].y < 0 - this.r || mouseBubbles[i].opacity <= 0.1) {
+      mouseBubbles.splice(i, 1);
       i--;
     }
   }
@@ -120,6 +158,7 @@ function handleParticles() {
 function animate() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   handleParticles();
+  handleMouseBubbles();
   requestAnimationFrame(animate);
 }
 
@@ -128,7 +167,7 @@ function release(){
     bubbleBot();
   }
 }
-release();
+// release();
 animate();
 
 // Intersection Observer Setup
@@ -168,6 +207,6 @@ obObjects.forEach((obj) => {
 // visibility test
 const handleChange = (e) => {
   document.title = document.hidden ? "Come back!" : "Bubbles!";
-  document.hidden ? particleArray = [] : release();  
+  document.hidden ? particleArray = [] : null;  
 }
 window.addEventListener('visibilitychange', handleChange)
