@@ -1,3 +1,8 @@
+:root {
+  --royalBlue: #1f4393;
+  --grayMed: #8c9ead;
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -10,7 +15,7 @@ html {
 
 body {
   position: relative;
-  background-color: white;
+  background-color: #1f4393;
   transition: background 3s, color 3s;
   color: #f0e6db;
 }
@@ -55,6 +60,12 @@ span.highlight {
   transition: color 3s;
 }
 
+div.hero {
+  width: 100vw;
+  height: 100vh;
+}
+
+
 .canvas-wrap {
   position: sticky;
   display: flex;
@@ -65,6 +76,78 @@ span.highlight {
   width: 100vw;
   height: 100vh;
   z-index: 100;
+  opacity: 0;
+  transition: opacity 1s;
+}
+
+.canvas-wrap.in-view {
+  opacity: 1;
+}
+
+.seaweed-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.seaweed {
+  position: absolute;
+  opacity: 0.75;
+  bottom: 0;
+}
+
+.seaweed.left {
+  left: 0;
+  width: 60%;
+}
+
+.st0, .st1, .st2, .st3 {
+  fill: var(--grayMed);
+}
+
+.seaweed.left .st0,
+.seaweed.left .st1,
+.seaweed.left .st2 {
+    --timeBase: 0.2s;
+    --steps: 3;
+    --length: calc(var(--timeBase) * var(--steps));
+    animation: shift var(--length) infinite steps(4);
+  }
+.seaweed.left .st0 {
+  animation-delay: var(--timeBase);
+}
+.seaweed.left .st1 {
+  animation-delay: calc(var(--timeBase) * 2);
+}
+.seaweed.left .st2 {
+  animation-delay: calc(var(--timeBase) * 3);
+}
+
+.seaweed.right {
+  right: 0;
+  width: 30%;
+}
+
+.seaweed.right .st0,
+.seaweed.right .st1,
+.seaweed.right .st2 {
+    --timeBase: 0.2s;
+    --steps: 3;
+    --length: calc(var(--timeBase) * var(--steps));
+    animation: shift var(--length) infinite steps(4);
+    fill: var(--grayMed);
+  }
+.seaweed.right .st0 {
+  animation-delay: var(--timeBase);
+}
+.seaweed.right .st1 {
+  animation-delay: calc(var(--timeBase) * 2);
+}
+.seaweed.right .st2 {
+  animation-delay: calc(var(--timeBase) * 3);
 }
 
 #canvas1 {
@@ -86,8 +169,37 @@ span.highlight {
   opacity: 1;
 }
 
+.bob {
+  display: inline-block;
+  animation: bob 1.5s infinite alternate cubic-bezier(0.37, 0, 0.63, 1);;
+}
+
 @media only screen and (max-width : 640px) { 
   h1 {
     font-size: 2.75rem;
+  }
+}
+
+@keyframes shift {
+  0% {
+    opacity: 1;
+  }
+  35% {
+    opacity: 1;
+  }
+  36% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes bob {
+  0% {
+    transform: translateY(-16px);
+  }
+  100% {
+    transform: translateY(16px);
   }
 }

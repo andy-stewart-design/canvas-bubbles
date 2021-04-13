@@ -22,10 +22,10 @@ window.addEventListener("resize", function () {
 });
 
 // Get/Set Mouse Coords
-const mouse = {
-  x: 0,
-  y: 0
-};
+// const mouse = {
+//   x: 0,
+//   y: 0
+// };
 
 // const timesPerSecond = 50;
 // let wait = false;
@@ -43,25 +43,25 @@ const mouse = {
 //     }
 //   }
 // });
-canvas.addEventListener("mousemove", (e) => {
-  mouse.x = e.clientX;
-  mouse.y = e.clientY;
-  for (let i = 0; i < 1; i++) {
-    mouseBubbles.push(new Particle(mouse.x, mouse.y));
-    wait = true;
-    setTimeout(function () {
-      wait = false;
-    }, 300 / timesPerSecond);
-  }
-});
+// canvas.addEventListener("mousemove", (e) => {
+//   mouse.x = e.clientX;
+//   mouse.y = e.clientY;
+//   for (let i = 0; i < 1; i++) {
+//     mouseBubbles.push(new Particle(mouse.x, mouse.y));
+//     wait = true;
+//     setTimeout(function () {
+//       wait = false;
+//     }, 300 / timesPerSecond);
+//   }
+// });
 
-const bubbleInterval = 200;
+const bubbleInterval = 2000;
 function bubbleBot() {
   if(document.hidden) {
     return
   }
-  // this.x = randomIntFromRange(wX/2-10, wX/2+10);
-  this.x = wX/2;
+  this.x = randomIntFromRange(0, wX);
+  // this.x = wX/2;
   particleArray.push(new Particle(this.x, wY + 10));
 }
 setInterval(bubbleBot, bubbleInterval);
@@ -93,7 +93,7 @@ class Particle {
     this.r = randomIntFromRange(10, 20);
     // this.speedX = randomIntFromRange(-.5, .5);
     this.speedX1 = 0;
-    this.speedXVar = randomIntFromRange(-1, 1);
+    this.speedXVar = randomIntFromRange(-2, 2);
     this.speedX2 = this.speedXVar >= 0 ? 0.05 : -0.05;
     this.speedY = randomIntFromRange(-1, -4);
     this.rotation = randomIntFromRange(0, 360);
@@ -172,7 +172,8 @@ animate();
 
 // Intersection Observer Setup
 const obObjects = document.querySelectorAll(".text-wrap");
-const scrollText = document.querySelector('.scroll');
+// const scrollText = document.querySelector('.scroll');
+const canvWrap = document.querySelector('.canvas-wrap');
 
 const offsetTop = `-45%`;
 const offsetBot = `-45%`;
@@ -190,7 +191,8 @@ function observerCallback(entries) {
     if (entry.isIntersecting) {
       document.body.classList.add(color);
       entry.target.classList.add('in-view');
-      scrollText.classList.remove('in-view');
+      // scrollText.classList.remove('in-view');
+      canvWrap.classList.add('in-view');
     } else {
       document.body.classList.remove(color);
       entry.target.classList.remove('in-view');
