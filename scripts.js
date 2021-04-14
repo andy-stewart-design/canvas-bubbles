@@ -111,6 +111,9 @@ class Particle {
     // ctx.drawImage(sprite, this.x, this.y, this.r, this.r);
     ctx.globalAlpha = this.opacity;
     rotateAndPaintImage(ctx, sprite, this.rotation, this.x, this.y, this.r, this.r, this.r)
+    if (this.y < 100) {
+      this.opacity -= .05;
+    }
   }
 
   update() {
@@ -171,12 +174,12 @@ function release(){
 animate();
 
 // Intersection Observer Setup
-const obObjects = document.querySelectorAll(".text-wrap");
-// const scrollText = document.querySelector('.scroll');
+const obObjects = document.querySelectorAll(".observed");
 const canvWrap = document.querySelector('.canvas-wrap');
+const octopus = document.querySelector('.octopus');
 
-const offsetTop = `-45%`;
-const offsetBot = `-45%`;
+const offsetTop = `-10%`;
+const offsetBot = `-10%`;
 const observerOptions = {
   rootMargin: `${offsetTop} 0px ${offsetBot} 0px`,
   threshold: [0]
@@ -185,18 +188,27 @@ const observerOptions = {
 // Intersection Observer Callback Function
 function observerCallback(entries) {
   entries.forEach((entry) => {
-    // console.log(entry.target.dataset.color);
-    // console.log(entry.isIntersecting);
-    const color = entry.target.dataset.color;
-    if (entry.isIntersecting) {
+    const el = entry.target;
+    const color = el.dataset.color;
+    if (el.classList.contains("scroll-text") && entry.isIntersecting && entry.boundingClientRect.y>0) {
       document.body.classList.add(color);
-      entry.target.classList.add('in-view');
-      // scrollText.classList.remove('in-view');
-      canvWrap.classList.add('in-view');
-    } else {
+      el.classList.add('in-view');
+      if (el.dataset.color==='blue-01') {
+        canvWrap.classList.add('in-view');
+      }
+      if (el.dataset.color==='blue-03') {
+        octopus.classList.add('in-view');
+      }
+    } else if (el.classList.contains("scroll-text") && entry.isIntersecting===false && entry.boundingClientRect.y>0) {
       document.body.classList.remove(color);
-      entry.target.classList.remove('in-view');
-    }
+      el.classList.remove('in-view');
+      if (el.dataset.color==='blue-01') {
+        canvWrap.classList.remove('in-view');
+      }
+      if (el.classList.contains("octo-wrapper")) {
+        octopus.classList.remove('in-view');
+      }
+    } 
   });
 }
 
@@ -212,3 +224,9 @@ const handleChange = (e) => {
   document.hidden ? particleArray = [] : null;  
 }
 window.addEventListener('visibilitychange', handleChange)
+
+const textWrappers = document.querySelectorAll('.scroll-text .highlight');
+textWrappers.forEach(wrapper => {
+  wrapper.innerHTML = wrapper.textContent.replace(/\S/g, "<span class='letter'>$&</span>");
+})
+
