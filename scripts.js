@@ -111,9 +111,9 @@ class Particle {
     // ctx.drawImage(sprite, this.x, this.y, this.r, this.r);
     ctx.globalAlpha = this.opacity;
     rotateAndPaintImage(ctx, sprite, this.rotation, this.x, this.y, this.r, this.r, this.r)
-    if (this.y < 100) {
-      this.opacity -= .05;
-    }
+    // if (this.y < 100) {
+    //   this.opacity -= .05;
+    // }
   }
 
   update() {
@@ -176,7 +176,9 @@ animate();
 // Intersection Observer Setup
 const obObjects = document.querySelectorAll(".observed");
 const canvWrap = document.querySelector('.canvas-wrap');
+const canvWrap2 = document.querySelector('.canvas-wrap-2');
 const octopus = document.querySelector('.octopus');
+const fish = document.querySelector('.fish');
 
 const offsetTop = `-10%`;
 const offsetBot = `-10%`;
@@ -195,6 +197,10 @@ function observerCallback(entries) {
       el.classList.add('in-view');
       if (el.dataset.color==='blue-01') {
         canvWrap.classList.add('in-view');
+        canvWrap2.classList.add('in-view');
+      }
+      if (el.dataset.color==='blue-02') {
+        fish.classList.add('in-view');
       }
       if (el.dataset.color==='blue-03') {
         octopus.classList.add('in-view');
@@ -204,6 +210,10 @@ function observerCallback(entries) {
       el.classList.remove('in-view');
       if (el.dataset.color==='blue-01') {
         canvWrap.classList.remove('in-view');
+        canvWrap2.classList.remove('in-view');
+      }
+      if (el.dataset.color==='blue-02') {
+        fish.classList.remove('in-view');
       }
       if (el.classList.contains("octo-wrapper")) {
         octopus.classList.remove('in-view');
