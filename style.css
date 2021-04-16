@@ -252,9 +252,9 @@ h1 {
 
 .octopus {
   position: absolute;
-  top: 1rem;
+  top: 8vh;
   right: 1rem;
-  width: 200px;
+  width: 12%;
   fill: var(--grayMed);
   transform: translateX(100%);
   opacity: 0;
@@ -265,7 +265,7 @@ h1 {
   position: absolute;
   bottom: 3rem;
   left: 3rem;
-  width: 300px;
+  width: 18%;
   fill: var(--grayMed);
   transform: translateX(-100%);
   opacity: .0;
