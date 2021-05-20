@@ -1,39 +1,39 @@
+/*  setup */
 :root {
   --royalBlue: #1f4393;
   --grayMed: #8c9ead;
 }
-
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
-
 html {
   background-color: #1f4393;
 }
 
+/* these styles control the color change of the background */
 body {
   position: relative;
   background-color: #1f4393;
-  transition: background 3s, color 3s;
+  transition: background 2s, color 2s;
   color: #f0e6db;
 }
 body span.highlight {
   color: #f76c5e;
+  white-space:nowrap;
 }
 body.blue-01 {
   background-color: #183676;
 }
-
 body.blue-02 {
   background-color: #12285a;
 }
-
 body.blue-03 {
   background-color: #0b1b3d;
 }
 
+/* can disregard — for demo purposes only */
 div.hero {
   position: relative;
   display: flex;
@@ -42,14 +42,32 @@ div.hero {
   width: 100vw;
   height: 100vh;
 }
-
-section.scrollytelling {
+div.hero h1 {
   position: relative;
-  /* padding-top: 40vh; */
+  font-family: "Poppins", sans-serif;
+  font-size: 3.75rem;
+  text-align: center;
+  max-width: 640px;
+}
+.scroll {
+  position: relative;
+  opacity: 0;
+  color: #f0e6db;
+  transition: opacity .5s;
+  z-index: 1;
+}
+.scroll.in-view {
+  opacity: 1;
 }
 
-div.scroll-container,
-div.scroll-container-2 {
+/* scroll section wrapper */
+section.scrollytelling {
+  position: relative;
+}
+
+/* sticky scroll sections */
+div.scroll-container-bot,
+div.scroll-container-top {
   position: absolute;
   top: 0;
   left: 0;
@@ -57,40 +75,11 @@ div.scroll-container-2 {
   height: 100%;
   z-index: 100;
 }
-
-div.scroll-container-2 {
+div.scroll-container-top {
   z-index: 200;
 }
-
-div.text-wrap {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100vw;
-  min-height: 100vh;
-}
-
-h1 {
-  position: relative;
-  font-family: "Poppins", sans-serif;
-  font-size: 3.75rem;
-  text-align: center;
-  max-width: 640px;
-}
-
-.scroll-text {
-  opacity: 0;
-  transform: translateY(8rem) rotateX(25deg) skewX(10deg);
-  transition: transform 2s 0s, opacity 1s cubic-bezier(.215,.61,.355,1) 0s;
-}
-
-.scroll-text.in-view {
-  opacity: 1;
-  transform: translateY(0) rotate(0) skew(0);
-}
-
-.canvas-wrap,
-.canvas-wrap-2 {
+.bg-wrap,
+.canvas-wrap {
   position: sticky;
   top: 0;
   left: 0;
@@ -101,19 +90,17 @@ h1 {
   transition: opacity 1s;
   overflow: hidden;
 }
-
-.canvas-wrap.in-view {
+.bg-wrap.in-view {
   opacity: .7;
 }
-
-.canvas-wrap-2 {
+.canvas-wrap {
   z-index: 200;
 }
-
-.canvas-wrap-2.in-view {
+.canvas-wrap.in-view {
   opacity: 1;
 }
 
+/* background seaweed/animal styles */
 .seaweed-wrapper {
   position: absolute;
   top: 0;
@@ -122,22 +109,33 @@ h1 {
   height: 100%;
   z-index: 1;
 }
-
+.seaweed-gradient {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 30vh;
+  background: linear-gradient(0deg, rgba(11, 27, 61,1) 0%, rgba(11, 27, 61,0) 80%);
+  opacity: 0;
+  transition: opacity 2s;
+}
+.seaweed-gradient.in-view {
+  opacity: 1;
+}
 .seaweed {
   position: absolute;
+  display: block;
   opacity: 0.75;
-  bottom: 0;
 }
-
 .seaweed.left {
+  bottom: 0;
   left: 0;
-  width: 50%;
+  width: 100%;
+  max-width: 480px;
 }
-
 .st0, .st1, .st2, .st3 {
   fill: var(--grayMed);
 }
-
 .seaweed.left .st0,
 .seaweed.left .st1,
 .seaweed.left .st2 {
@@ -155,12 +153,13 @@ h1 {
 .seaweed.left .st2 {
   animation-delay: calc(var(--timeBase) * 3);
 }
-
 .seaweed.right {
+  top: -2rem;
   right: 0;
-  width: 30%;
+  width: 50%;
+  max-width: 280px;
+  transform: rotate(-90deg);
 }
-
 .seaweed.right .st0,
 .seaweed.right .st1,
 .seaweed.right .st2 {
@@ -179,37 +178,77 @@ h1 {
 .seaweed.right .st2 {
   animation-delay: calc(var(--timeBase) * 3);
 }
+.octopus {
+  position: absolute;
+  top: 30%;
+  right: 1rem;
+  width: 35%;
+  max-width: 160px;
+  fill: var(--grayMed);
+  transform: translateX(100%);
+  opacity: 0;
+  transition: transform 2s cubic-bezier(.215,.61,.355,1) 0s, opacity 1s cubic-bezier(.215,.61,.355,1) 0s;
+}
+.fish {
+  position: absolute;
+  bottom: 3rem;
+  left: 1rem;
+  width: 40%;
+  max-width: 200px;
+  fill: var(--grayMed);
+  transform: translateX(-100%);
+  opacity: .0;
+  transition: transform 2s cubic-bezier(.215,.61,.355,1) 0s, opacity 1s cubic-bezier(.215,.61,.355,1) 0s;
+  z-index: 100000;
+}
+.octopus.in-view,
+.fish.in-view {
+  opacity: 1;
+  transform: translateX(0%);
+}
 
-#canvas1 {
+/* foreground bubble styles (most is being handeled in js) */
+#canvas {
   position: absolute;
   top: 0;
   left: 0;
   z-index: 2;
 }
 
-.scroll {
+/* text sections — notice the transforms that give the text depth on entrance */
+div.text-wrap {
   position: relative;
-  opacity: 0;
-  color: #f0e6db;
-  transition: opacity .5s;
-  z-index: 1;
-}
-
-.scroll.in-view {
-  opacity: 1;
-}
-
-.text-wrap {
-  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  min-height: 100vh;
+  padding: 2rem;
   z-index: 100;
 }
+div.text-wrap h1 {
+  position: relative;
+  font-family: "Poppins", sans-serif;
+  font-size: 3.75rem;
+  text-align: center;
+  max-width: 640px;
+}
+div.text-wrap .scroll-text {
+  opacity: 0;
+  transform: translateY(8rem) rotateX(25deg) skewX(10deg);
+  transition: transform 2s 0s, opacity 1s cubic-bezier(.215,.61,.355,1) 0s;
+}
+div.text-wrap .scroll-text.in-view {
+  opacity: 1;
+  transform: translateY(0) rotate(0) skew(0);
+}
 
+/* this is to animate the bob of the highlighted text — there may be a better way to do this with SCSS */
 .letter {
   --speed: .5s;
   display: inline-block;
   animation: bob 2s infinite alternate cubic-bezier(0.37, 0, 0.63, 1);;
 }
-
 .letter:nth-of-type(1){
   animation-delay: calc( var(--speed) * -13 );
 }
@@ -250,40 +289,49 @@ h1 {
   animation-delay: calc( var(--speed) * -1 );
 }
 
-.octopus {
-  position: absolute;
-  top: 8vh;
-  right: 1rem;
-  width: 12%;
-  fill: var(--grayMed);
-  transform: translateX(100%);
-  opacity: 0;
-  transition: transform 2s cubic-bezier(.215,.61,.355,1) 0s, opacity 1s cubic-bezier(.215,.61,.355,1) 0s;
-}
-
-.fish {
-  position: absolute;
-  bottom: 3rem;
-  left: 3rem;
-  width: 18%;
-  fill: var(--grayMed);
-  transform: translateX(-100%);
-  opacity: .0;
-  transition: transform 2s cubic-bezier(.215,.61,.355,1) 0s, opacity 1s cubic-bezier(.215,.61,.355,1) 0s;
-}
-
-.octopus.in-view,
-.fish.in-view {
-  opacity: 1;
-  transform: translateX(0%);
-}
-
+/* mqs */
 @media only screen and (max-width : 640px) { 
-  h1 {
+  div.hero h1,
+  div.text-wrap h1 {
     font-size: 2.75rem;
   }
 }
+@media only screen and (min-width : 1024px) {
+  .seaweed.left {
+    left: 0;
+    width: 50%;
+    max-width: 720px;
+  }
+  .seaweed.right {
+    top: auto;
+    bottom: 0;
+    width: 30%;
+    max-width: 400px;
+    transform: rotate(0deg);
+  } 
+  .octopus {
+    position: absolute;
+    top: 8vh;
+    right: 1rem;
+    width: 18%;
+    max-width: 200px;
+    transform: translateX(100%);
+    opacity: 0;
+    transition: transform 2s cubic-bezier(.215,.61,.355,1) 0s, opacity 1s cubic-bezier(.215,.61,.355,1) 0s;
+  }
+  .fish {
+    position: absolute;
+    bottom: 3rem;
+    left: 3rem;
+    width: 18%;
+    max-width: 280px;
+    transform: translateX(-100%);
+    opacity: .0;
+    transition: transform 2s cubic-bezier(.215,.61,.355,1) 0s, opacity 1s cubic-bezier(.215,.61,.355,1) 0s;
+  }
+}
 
+/* seaweed animation keyframes */
 @keyframes shift {
   0% {
     opacity: 1;
@@ -299,6 +347,7 @@ h1 {
   }
 }
 
+/* highlighted text animation keyframes */
 @keyframes bob {
   0% {
     transform: translateY(-5px);
