@@ -126,6 +126,7 @@ div.scroll-container-top {
   position: absolute;
   display: block;
   opacity: 0.75;
+  fill: var(--grayMed);
 }
 .seaweed.left {
   bottom: 0;
@@ -133,50 +134,12 @@ div.scroll-container-top {
   width: 100%;
   max-width: 480px;
 }
-.st0, .st1, .st2, .st3 {
-  fill: var(--grayMed);
-}
-.seaweed.left .st0,
-.seaweed.left .st1,
-.seaweed.left .st2 {
-    --timeBase: 0.2s;
-    --steps: 3;
-    --length: calc(var(--timeBase) * var(--steps));
-    animation: shift var(--length) infinite steps(4);
-  }
-.seaweed.left .st0 {
-  animation-delay: var(--timeBase);
-}
-.seaweed.left .st1 {
-  animation-delay: calc(var(--timeBase) * 2);
-}
-.seaweed.left .st2 {
-  animation-delay: calc(var(--timeBase) * 3);
-}
 .seaweed.right {
   top: -2rem;
   right: 0;
   width: 50%;
   max-width: 280px;
   transform: rotate(-90deg);
-}
-.seaweed.right .st0,
-.seaweed.right .st1,
-.seaweed.right .st2 {
-    --timeBase: 0.2s;
-    --steps: 3;
-    --length: calc(var(--timeBase) * var(--steps));
-    animation: shift var(--length) infinite steps(4);
-    fill: var(--grayMed);
-  }
-.seaweed.right .st0 {
-  animation-delay: var(--timeBase);
-}
-.seaweed.right .st1 {
-  animation-delay: calc(var(--timeBase) * 2);
-}
-.seaweed.right .st2 {
-  animation-delay: calc(var(--timeBase) * 3);
 }
 .octopus {
   position: absolute;
@@ -331,15 +294,35 @@ div.text-wrap .scroll-text.in-view {
   }
 }
 
-/* seaweed animation keyframes */
-@keyframes shift {
+/* Jitter animation classes */
+.animation-jitter-step01,
+.animation-jitter-step02,
+.animation-jitter-step03,
+.animation-jitter-step04 {
+  --timeBase: 0.5s;
+  --steps: 3;
+  --length: calc(var(--timeBase) * var(--steps));
+  animation: jitter var(--length) infinite steps(4);
+}
+.animation-jitter-step02 {
+  animation-delay: var(--timeBase);
+}
+.animation-jitter-step03 {
+  animation-delay: calc(var(--timeBase) * 2);
+}
+.animation-jitter-step04 {
+  animation-delay: calc(var(--timeBase) * 3);
+}
+
+/* Seaweed animation keyframes */
+@keyframes jitter {
   0% {
     opacity: 1;
   }
-  35% {
+  50% {
     opacity: 1;
   }
-  36% {
+  51% {
     opacity: 0;
   }
   100% {
