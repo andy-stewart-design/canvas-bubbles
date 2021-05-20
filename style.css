@@ -116,11 +116,11 @@ div.scroll-container-top {
   width: 100%;
   height: 30vh;
   background: linear-gradient(0deg, rgba(11, 27, 61,1) 0%, rgba(11, 27, 61,0) 80%);
-  opacity: 0;
-  transition: opacity 2s;
+  transform: translateY(100%);
+  transition: transform 1s;
 }
 .seaweed-gradient.in-view {
-  opacity: 1;
+  transform: translateY(0%);
 }
 .seaweed {
   position: absolute;
