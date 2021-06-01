@@ -152,7 +152,7 @@ div.scroll-container-top {
   opacity: 0;
   transition: transform 2s cubic-bezier(.215,.61,.355,1) 0s, opacity 1s cubic-bezier(.215,.61,.355,1) 0s;
 }
-.fish {
+#scrolly-fish {
   position: absolute;
   bottom: 3rem;
   left: 1rem;
@@ -164,12 +164,28 @@ div.scroll-container-top {
   transition: transform 2s cubic-bezier(.215,.61,.355,1) 0s, opacity 1s cubic-bezier(.215,.61,.355,1) 0s;
   z-index: 100000;
 }
+#scrolly-fish #pupil {
+  fill: #12285a;
+}
+#scrolly-fish #fish {
+  transform-origin: 193.8229px 119.7528px;
+  transform: translateY(10px);
+  animation: fish-float 3s infinite alternate ease-in-out;
+}
+#scrolly-fish  #fin {
+  transform-origin: 193.8229px 119.7528px;
+  transform: rotate(15deg);
+  animation: fish-flipper 1s infinite alternate steps(8);
+}
+#scrolly-fish #eye {
+  transform-origin: 221.5893px 80.2389px;
+  animation: fish-blink 2s infinite alternate ease-in-out;
+}
 .octopus.in-view,
-.fish.in-view {
+#scrolly-fish.in-view {
   opacity: 1;
   transform: translateX(0%);
 }
-
 /* foreground bubble styles (most is being handeled in js) */
 #canvas {
   position: absolute;
@@ -282,7 +298,7 @@ div.text-wrap .scroll-text.in-view {
     opacity: 0;
     transition: transform 2s cubic-bezier(.215,.61,.355,1) 0s, opacity 1s cubic-bezier(.215,.61,.355,1) 0s;
   }
-  .fish {
+  #scrolly-fish {
     position: absolute;
     bottom: 3rem;
     left: 3rem;
@@ -337,5 +353,34 @@ div.text-wrap .scroll-text.in-view {
   }
   100% {
     transform: translateY(5px);
+  }
+}
+
+/* fish keyframes */
+@keyframes fish-flipper {
+  0% {
+    transform: rotate(15deg);
+  }
+  100% {
+    transform: rotate(-22deg);
+  }
+}
+@keyframes fish-float {
+  0% {
+    transform: translateY(10px);
+  }
+  100% {
+    transform: translateY(-10px);
+  }
+}
+@keyframes fish-blink {
+  0% {
+    transform: scaleY(1);
+  }
+  5% {
+    transform: scaleY(0);
+  }
+  10%, 100% {
+    transform: scaleY(1);
   }
 }

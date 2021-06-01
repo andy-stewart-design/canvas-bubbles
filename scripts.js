@@ -117,7 +117,7 @@ const obObjects = document.querySelectorAll(".observed");
 const canvWrap = document.querySelector('.bg-wrap');
 const canvWrap2 = document.querySelector('.canvas-wrap');
 const octopus = document.querySelector('.octopus');
-const fish = document.querySelector('.fish');
+const fish = document.querySelector('#scrolly-fish');
 const gradient = document.querySelector('.seaweed-gradient');
 
 const offsetTop = `-10%`;
