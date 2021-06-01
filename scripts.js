@@ -116,7 +116,7 @@ window.addEventListener('visibilitychange', handleChange)
 const obObjects = document.querySelectorAll(".observed");
 const canvWrap = document.querySelector('.bg-wrap');
 const canvWrap2 = document.querySelector('.canvas-wrap');
-const octopus = document.querySelector('.octopus');
+const octopus = document.querySelector('#scrolly-octopus');
 const fish = document.querySelector('#scrolly-fish');
 const gradient = document.querySelector('.seaweed-gradient');
 

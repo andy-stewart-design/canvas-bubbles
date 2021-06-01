@@ -141,7 +141,7 @@ div.scroll-container-top {
   max-width: 280px;
   transform: rotate(-90deg);
 }
-.octopus {
+#scrolly-octopus {
   position: absolute;
   top: 30%;
   right: 1rem;
@@ -151,6 +151,24 @@ div.scroll-container-top {
   transform: translateX(100%);
   opacity: 0;
   transition: transform 2s cubic-bezier(.215,.61,.355,1) 0s, opacity 1s cubic-bezier(.215,.61,.355,1) 0s;
+  z-index: 2;
+}
+#scrolly-octopus #octo-bg {
+  fill: #12285a;
+  transition: fill 2s cubic-bezier(.215,.61,.355,1) 0s;
+}
+#scrolly-octopus.in-view #octo-bg {
+  fill: #0b1b3d;
+}
+#scrolly-octopus.in-view #octopus {
+  transform-origin: 50% 50%;
+  transform: translateY(10px);
+  animation: fish-float 3s infinite alternate ease-in-out;
+  animation-delay: 2s;
+}
+#scrolly-octopus #octo-eye {
+  transform-origin: 27.0505px 148.8988px;
+  animation: fish-blink 2s infinite alternate-reverse ease-in-out;
 }
 #scrolly-fish {
   position: absolute;
@@ -182,7 +200,7 @@ div.scroll-container-top {
   transform-origin: 221.5893px 80.2389px;
   animation: fish-blink 2s infinite alternate ease-in-out;
 }
-.octopus.in-view,
+#scrolly-octopus.in-view,
 #scrolly-fish.in-view {
   opacity: 1;
   transform: translateX(0%);
@@ -289,9 +307,9 @@ div.text-wrap .scroll-text.in-view {
     max-width: 400px;
     transform: rotate(0deg);
   } 
-  .octopus {
+  #scrolly-octopus {
     position: absolute;
-    top: 8vh;
+    top: 4vh;
     right: 1rem;
     width: 18%;
     max-width: 200px;
