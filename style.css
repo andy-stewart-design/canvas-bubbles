@@ -167,10 +167,11 @@ div.scroll-container-top {
 #scrolly-fish #pupil {
   fill: #12285a;
 }
-#scrolly-fish #fish {
+#scrolly-fish.in-view #fish {
   transform-origin: 193.8229px 119.7528px;
   transform: translateY(10px);
   animation: fish-float 3s infinite alternate ease-in-out;
+  animation-delay: 2s;
 }
 #scrolly-fish  #fin {
   transform-origin: 193.8229px 119.7528px;
